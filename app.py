@@ -1,7 +1,7 @@
 import os
 import sys
 import json
-
+import urllib2
 import requests
 from flask import Flask, request
 
@@ -38,10 +38,11 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
+                    
                     if message_text == "news":
-                        send_message(sender_id,"Message recieved")
-
-                    send_message(sender_id,"no "+message_text )
+                        news(sender_id)
+                    if message_text =="hello" or "hi" or "hola"
+                        send_message(sender_id,"Hola!" )
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -54,6 +55,16 @@ def webhook():
 
     return "ok", 200
 
+
+def news(sender_id):
+                             {
+                             j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+                             j_obj =json.load(j)
+                             for i in range(10):
+                                temp= j_obj['articles'][i]['title']
+                                send_message(sender_id, temp)
+                             }
+                        
 
 def send_message(recipient_id, message_text):
 
