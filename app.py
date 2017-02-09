@@ -57,13 +57,12 @@ def webhook():
 
 
 def news(sender_id):
-                             {
-                             j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-                             j_obj =json.load(j)
-                             for i in range(10):
-                                temp= j_obj['articles'][i]['title']
-                                send_message(sender_id, temp)
-                             }
+    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+    j_obj =json.load(j)
+    for i in range(10):
+        temp= j_obj['articles'][i]['title']
+        send_message(sender_id, temp)
+
                         
 
 def send_message(recipient_id, message_text):
