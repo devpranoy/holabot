@@ -42,10 +42,18 @@ def webhook():
                     if message_text == "news":
                         news(sender_id)
                         break;
+                if message_text=="help":
+                        send_message(sender_id,"Welcome to holabot")
+                        send_message(sender_id,"Things you can say")
+                        send_message(sender_id,"1. Hi")
+                        send_message(sender_id,"2. News")
+                        send_message(sender_id,"3. Help")
+                            break;
                 if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
-                else:
+                else:                                                       #catches query
                         send_message(sender_id,"Welcome to HolaBot")
+                        send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
                         break;
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -66,7 +74,7 @@ def news(sender_id):
     for i in range(5):
         temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
         send_message(sender_id, temp)
-        img=j_obj['articles'][i]['urlToImage'] #SENDING THE IMAGELINKS
+        img=j_obj['articles'][i]['url'] #SENDING THE IMAGELINKS
         send_message(sender_id,img)
 
 
