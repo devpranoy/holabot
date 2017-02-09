@@ -37,8 +37,8 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
-                    
+                    message_text = messaging_event["message"]["text"]# the message's text
+                    message_text= message_text.lower()
                     if message_text == "news":
                         news(sender_id)
                         break;
@@ -63,9 +63,12 @@ def webhook():
 def news(sender_id):
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
-    for i in range(10):
-        temp= j_obj['articles'][i]['title']
+    for i in range(5):
+        temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
         send_message(sender_id, temp)
+        img=j_obj['articles'][i]['urlToImage'] #SENDING THE IMAGELINKS
+        send_message(sender_id,img)
+
 
                         
 
