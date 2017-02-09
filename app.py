@@ -42,8 +42,10 @@ def webhook():
                     if message_text == "news":
                         news(sender_id)
                         break;
-                    if message_text =="hi":
+                if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
+                else:
+                        send_message(sender_id,"Welcome to HolaBot")
                         break;
 
                 if messaging_event.get("delivery"):  # delivery confirmation
