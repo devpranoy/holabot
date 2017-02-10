@@ -88,7 +88,7 @@ def message_help(recipient_id):
                       "buttons":[
                                  {
                                  "type":"postback",
-                                 "title":"News"
+                                 "title":"News",
                                  "payload":"USER_DEFINED_PAYLOAD"
                                  },
                                  {
