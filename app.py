@@ -44,6 +44,7 @@ def webhook():
                         break;
                 if message_text=="help":
                         message_help(sender_id)
+                        send_message(sender_id,"Testing")
 
                         break;
                 if message_text =="hey" or message_text=="hi" or message_text=="hello":
@@ -66,7 +67,7 @@ def webhook():
 
 
 def message_help(recipient_id):
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id))
+    log("sending message to {recipient}".format(recipient=recipient_id))
     
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
