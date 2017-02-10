@@ -34,7 +34,7 @@ def webhook():
             for messaging_event in entry["messaging"]:
 
                 if messaging_event.get("message"):  # someone sent us a message
-
+                
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
@@ -46,7 +46,7 @@ def webhook():
                     if message_text=="help":
                         message_help(sender_id)
                         
-
+                
                         break;
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
@@ -54,7 +54,7 @@ def webhook():
                         send_message(sender_id,"Welcome to HolaBot")
                         send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
                         break;
-
+                
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
@@ -113,11 +113,12 @@ def message_help(recipient_id):
 def news(sender_id):
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
-    for i in range(5):
+    for i in range(1):
         temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
         send_message(sender_id, temp)
         img=j_obj['articles'][i]['url'] #SENDING THE IMAGELINKS
         send_message(sender_id,img)
+        break;
 
 
                         
