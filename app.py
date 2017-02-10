@@ -43,11 +43,8 @@ def webhook():
                         news(sender_id)
                         break;
                 if message_text=="help":
-                        send_message(sender_id,"Welcome to holabot")
-                        send_message(sender_id,"Things you can say")
-                        send_message(sender_id,"1. Hi")
-                        send_message(sender_id,"2. News")
-                        send_message(sender_id,"3. Help")
+                        message_help(sender_id)
+
                         break;
                 if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
@@ -66,6 +63,49 @@ def webhook():
                     pass
 
     return "ok", 200
+
+
+def message_help(recipient_id):
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id))
+    
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+}
+    headers = {
+        "Content-Type": "application/json"
+}
+    data = json.dumps({
+                      "recipient": {
+                      "id": recipient_id
+                      },
+                      "message": {
+                      "attachment":{
+                      "type":"template",
+                      "payload":{
+                      "template_type":"button",
+                      "text":"What do you want to do next?",
+                      "buttons":[
+                                 {
+                                 "type":"postback",
+                                 "title":"News",
+                                 "payload":"USER_DEFINED_PAYLOAD"
+                                 },
+                                 {
+                                 "type":"postback",
+                                 "title":"Hi",
+                                 "payload":"USER_DEFINED_PAYLOAD"
+                                 }
+                                 
+                                 ]
+                      }
+                      }
+                      
+                      }})
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
 
 
 def news(sender_id):
