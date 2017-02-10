@@ -43,14 +43,14 @@ def webhook():
                     if message_text == "news":
                         news(sender_id)
                         break;
-                if message_text=="help":
+                    if message_text=="help":
                         message_help(sender_id)
                         
 
                         break;
-                if message_text =="hey" or message_text=="hi" or message_text=="hello":
+                    if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
-                else:                                                       #catches query
+                    else:                                                       #catches query
                         send_message(sender_id,"Welcome to HolaBot")
                         send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
                         break;
