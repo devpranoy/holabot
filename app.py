@@ -89,12 +89,12 @@ def message_help(recipient_id):
                                  {
                                  "type":"postback",
                                  "title":"News",
-                                 "payload":"USER_DEFINED_PAYLOAD"
+                                 "payload":"news"
                                  },
                                  {
                                  "type":"postback",
                                  "title":"Hi",
-                                 "payload":"USER_DEFINED_PAYLOAD"
+                                 "payload":"hi"
                                  }
                                  ]
                       }
