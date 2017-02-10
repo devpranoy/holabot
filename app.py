@@ -78,7 +78,7 @@ def message_help(recipient_id):
                       "recipient": {
                       "id": recipient_id
                       },
-                      "message": {
+                      "message":{
                       "attachment":{
                       "type":"template",
                       "payload":{
@@ -86,21 +86,21 @@ def message_help(recipient_id):
                       "text":"What do you want to do next?",
                       "buttons":[
                                  {
-                                 "type":"postback",
-                                 "title":"News",
-                                 "payload":"USER_DEFINED_PAYLOAD"
+                                 "type":"web_url",
+                                 "url":"https://petersapparel.parseapp.com",
+                                 "title":"Show Website"
                                  },
                                  {
                                  "type":"postback",
-                                 "title":"Hi",
+                                 "title":"Start Chatting",
                                  "payload":"USER_DEFINED_PAYLOAD"
                                  }
-                                 
                                  ]
                       }
                       }
+                      }
                       
-                      }})
+                      })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
