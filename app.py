@@ -84,16 +84,16 @@ def message_help(recipient_id):
                       "type":"template",
                       "payload":{
                       "template_type":"button",
-                      "text":"What do you want to do next?",
+                      "text":"I can do the following stuff",
                       "buttons":[
                                  {
-                                 "type":"web_url",
-                                 "url":"https://petersapparel.parseapp.com",
-                                 "title":"Show Website"
+                                 "type":"postback",
+                                 "title":"News"
+                                 "payload":"USER_DEFINED_PAYLOAD"
                                  },
                                  {
                                  "type":"postback",
-                                 "title":"Start Chatting",
+                                 "title":"Hi",
                                  "payload":"USER_DEFINED_PAYLOAD"
                                  }
                                  ]
