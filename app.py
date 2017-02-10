@@ -41,20 +41,20 @@ def webhook():
                     try:
                         postback_text= messaging_event["postback"]["payload"]#postbacks from buttons
                     except:
-                        pass
+                        print "lol"
                     message_text= message_text.lower()
                     try:
                         if postback_text=="news":
                             news(sender_id)
                             break;
                     except:
-                        pass
+                        print "lol"
                     if message_text == "news":
                         news(sender_id)
                         break;
                 if message_text=="help":
                         message_help(sender_id)
-                        send_message(sender_id,"Testing")
+                        
 
                         break;
                 if message_text =="hey" or message_text=="hi" or message_text=="hello":
