@@ -159,24 +159,24 @@ def message_news(recipient_id):
                       "elements":[
                                   {
                                   "title":"Welcome to Peter\'s Hats",
-                                  "image_url":"https://petersfancybrownhats.com/company_image.png",
+                                  "image_url":"http://www.thehindu.com/static/theme/default/base/img/og-image.jpg",
                                   "subtitle":"We\'ve got the right hat for everyone.",
                                   "default_action": {
                                   "type": "web_url",
-                                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+                                  "url": "https://www.google.com",
                                   "messenger_extensions": true,
                                   "webview_height_ratio": "tall",
-                                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                  "fallback_url": "https://www.google.com"
                                   },
                                   "buttons":[
                                              {
                                              "type":"web_url",
-                                             "url":"https://petersfancybrownhats.com",
+                                             "url":"https://www.google.com",
                                              "title":"View Website"
                                              },{
                                              "type":"postback",
                                              "title":"Start Chatting",
-                                             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                                             "payload":"news"
                                              }              
                                              ]      
                                   }
