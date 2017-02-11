@@ -136,7 +136,7 @@ def news(sender_id):
         break;
 
 def message_news(recipient_id):
-
+    true = True
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
     log("sending message to {recipient}".format(recipient=recipient_id))
