@@ -155,42 +155,40 @@ def message_news(recipient_id):
                       "attachment":{
                       "type":"template",
                       "payload":{
-                      "template_type": "list",
-                      "elements": [
-                                   {
-                                   "title":"Top Headlines" ,
-                                   "image_url": str(j_obj['articles'][1]['urlToImage']) ,
-                                   "subtitle": str(j_obj['articles'][1]['title']) ,
-                                   "default_action": {
-                                   "type": "web_url",
-                                   "url": str(j_obj['articles'][1]['url']) ,
-                                   "messenger_extensions": true,
-                                   "webview_height_ratio": "tall",
-                                   "fallback_url": str(j_obj['articles'][1]['urlToImage'])
-                                   },
-                                   "buttons": [
-                                               {
-                                               "title": "View",
-                                               "type": "web_url",
-                                               "url": str(j_obj['articles'][1]['url']) ,
-                                               "messenger_extensions": true,
-                                               "webview_height_ratio": "tall",
-                                               "fallback_url": str(j_obj['articles'][1]['url'])
-                                               }
-                                               ]
-                                   }                                   ],
-                      "buttons": [
+                      "template_type":"generic",
+                      "elements":[
                                   {
-                                  "title": "View More",
-                                  "type": "postback",
-                                  "payload": "news"
+                                  "title":"Welcome to Peter\'s Hats",
+                                  "image_url":"https://petersfancybrownhats.com/company_image.png",
+                                  "subtitle":"We\'ve got the right hat for everyone.",
+                                  "default_action": {
+                                  "type": "web_url",
+                                  "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
+                                  "messenger_extensions": true,
+                                  "webview_height_ratio": "tall",
+                                  "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                  },
+                                  "buttons":[
+                                             {
+                                             "type":"web_url",
+                                             "url":"https://petersfancybrownhats.com",
+                                             "title":"View Website"
+                                             },{
+                                             "type":"postback",
+                                             "title":"Start Chatting",
+                                             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                                             }              
+                                             ]      
                                   }
                                   ]
-                                           }
                       }
                       }
-                      
+                      }
                       })
+
+
+    
+ 
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
