@@ -69,7 +69,7 @@ def webhook():
                     message_text= message_text.lower()
                     
                     if message_text == "news":
-                        news(sender_id)
+                        message_news(sender_id)
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
 
@@ -128,12 +128,142 @@ def message_help(recipient_id):
 def news(sender_id):
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
-    for i in range(1):
+    for i in range(5):
         temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
         send_message(sender_id, temp)
         img=j_obj['articles'][i]['url'] #SENDING THE IMAGELINKS
         send_message(sender_id,img)
         break;
+
+def message_news(recipient_id,i):
+
+    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+    j_obj =json.load(j)
+    log("sending message to {recipient}".format(recipient=recipient_id))
+    
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+}
+    headers = {
+        "Content-Type": "application/json"
+}
+    data = json.dumps({
+                      "recipient": {
+                      "id": recipient_id
+                      },
+                      "message":{
+                      "attachment":{
+                      "type":"template",
+                      "payload":{
+                      "template_type": "list",
+                      "elements": [
+                                   {
+                                   "title":"Top Headlines" ,
+                                   "image_url": j_obj['articles'][1]['urlToImage'] ,
+                                   "subtitle": j_obj['articles'][1]['title'] ,
+                                   "default_action": {
+                                   "type": "web_url",
+                                   "url": j_obj['articles'][1]['url'] ,
+                                   "messenger_extensions": true,
+                                   "webview_height_ratio": "tall",
+                                   "fallback_url": j_obj['articles'][1]['urlToImage']
+                                   },
+                                   "buttons": [
+                                               {
+                                               "title": "View",
+                                               "type": "web_url",
+                                               "url": j_obj['articles'][1]['url'] ,
+                                               "messenger_extensions": true,
+                                               "webview_height_ratio": "tall",
+                                               "fallback_url": j_obj['articles'][1]['url']
+                                               }
+                                               ]
+                                   },
+                                   {
+                                   "title": "Classic White T-Shirt",
+                                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/white-t-shirt.png",
+                                   "subtitle": "100% Cotton, 200% Comfortable",
+                                   "default_action": {
+                                   "type": "web_url",
+                                   "url": "https://peterssendreceiveapp.ngrok.io/view?item=100",
+                                   "messenger_extensions": true,
+                                   "webview_height_ratio": "tall",
+                                   "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                   },
+                                   "buttons": [
+                                               {
+                                               "title": "Shop Now",
+                                               "type": "web_url",
+                                               "url": "https://peterssendreceiveapp.ngrok.io/shop?item=100",
+                                               "messenger_extensions": true,
+                                               "webview_height_ratio": "tall",
+                                               "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                               }
+                                               ]
+                                   },
+                                   {
+                                   "title": "Classic Blue T-Shirt",
+                                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/blue-t-shirt.png",
+                                   "subtitle": "100% Cotton, 200% Comfortable",
+                                   "default_action": {
+                                   "type": "web_url",
+                                   "url": "https://peterssendreceiveapp.ngrok.io/view?item=101",
+                                   "messenger_extensions": true,
+                                   "webview_height_ratio": "tall",
+                                   "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                   },
+                                   "buttons": [
+                                               {
+                                               "title": "Shop Now",
+                                               "type": "web_url",
+                                               "url": "https://peterssendreceiveapp.ngrok.io/shop?item=101",
+                                               "messenger_extensions": true,
+                                               "webview_height_ratio": "tall",
+                                               "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                               }
+                                               ]
+                                   },
+                                   {
+                                   "title": "Classic Black T-Shirt",
+                                   "image_url": "https://peterssendreceiveapp.ngrok.io/img/black-t-shirt.png",
+                                   "subtitle": "100% Cotton, 200% Comfortable",
+                                   "default_action": {
+                                   "type": "web_url",
+                                   "url": "https://peterssendreceiveapp.ngrok.io/view?item=102",
+                                   "messenger_extensions": true,
+                                   "webview_height_ratio": "tall",
+                                   "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
+                                   },
+                                   "buttons": [
+                                               {
+                                               "title": "Shop Now",
+                                               "type": "web_url",
+                                               "url": "https://peterssendreceiveapp.ngrok.io/shop?item=102",
+                                               "messenger_extensions": true,
+                                               "webview_height_ratio": "tall",
+                                               "fallback_url": "https://peterssendreceiveapp.ngrok.io/"                        
+                                               }
+                                               ]                
+                                   }
+                                   ],
+                      "buttons": [
+                                  {
+                                  "title": "View More",
+                                  "type": "postback",
+                                  "payload": "payload"                        
+                                  }
+                                  ]
+                                           }
+                      }
+                      }
+                      
+                      })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+
 
 
                         
