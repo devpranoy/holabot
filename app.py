@@ -159,7 +159,7 @@ def message_news(recipient_id):
                       "elements":[
                                   {
                                   "title":"Welcome to Peter\'s Hats",
-                                  "image_url":"http://www.thehindu.com/static/theme/default/base/img/og-image.jpg",
+                                  "image_url":"https://www.google.com/edu/products/productivity-tools/classroom/images/classroom-icon/hero_logo.png",
                                   "subtitle":"We\'ve got the right hat for everyone.",
                                   "default_action": {
                                   "type": "web_url",
