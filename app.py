@@ -41,7 +41,7 @@ def webhook():
                     message_text= message_text.lower()
                     
                     if message_text == "news":
-                        news(sender_id)
+                        message_news(sender_id)
                         break;
                     if message_text=="help":
                         message_help(sender_id)
@@ -135,7 +135,7 @@ def news(sender_id):
         send_message(sender_id,img)
         break;
 
-def message_news(recipient_id,i):
+def message_news(recipient_id):
 
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
@@ -159,23 +159,23 @@ def message_news(recipient_id,i):
                       "elements": [
                                    {
                                    "title":"Top Headlines" ,
-                                   "image_url": j_obj['articles'][1]['urlToImage'] ,
-                                   "subtitle": j_obj['articles'][1]['title'] ,
+                                   "image_url": str(j_obj['articles'][1]['urlToImage']) ,
+                                   "subtitle": str(j_obj['articles'][1]['title']) ,
                                    "default_action": {
                                    "type": "web_url",
-                                   "url": j_obj['articles'][1]['url'] ,
+                                   "url": str(j_obj['articles'][1]['url']) ,
                                    "messenger_extensions": true,
                                    "webview_height_ratio": "tall",
-                                   "fallback_url": j_obj['articles'][1]['urlToImage']
+                                   "fallback_url": str(j_obj['articles'][1]['urlToImage'])
                                    },
                                    "buttons": [
                                                {
                                                "title": "View",
                                                "type": "web_url",
-                                               "url": j_obj['articles'][1]['url'] ,
+                                               "url": str(j_obj['articles'][1]['url']) ,
                                                "messenger_extensions": true,
                                                "webview_height_ratio": "tall",
-                                               "fallback_url": j_obj['articles'][1]['url']
+                                               "fallback_url": str(j_obj['articles'][1]['url'])
                                                }
                                                ]
                                    },
