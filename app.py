@@ -104,7 +104,7 @@ def addurl():
                       "whitelisted_domains" : ["https://www.engadget.com","https://s.aolcdn.com","https://www.google.com"],
                       "domain_action_type": "add"
                       })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    r = requests.post("https://graph.facebook.com/v2.6/me/thread_settings?", params=params, headers=headers, data=data)
     if r.status_code != 200:
         log(r.status_code)
         log(r.text)
