@@ -170,10 +170,10 @@ def message_news(recipient_id):
     url=randint(0,1)
     if url ==0:
         j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-        break;
-    if url ==1
+    
+    if url ==1:
         j= urllib2.urlopen(' https://newsapi.org/v1/articles?source=engadget&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-        break;
+    
     true = True
     i=randint(0,4)
     j_obj =json.load(j)
