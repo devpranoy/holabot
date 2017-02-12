@@ -4,6 +4,7 @@ import json
 import urllib2
 import requests
 from flask import Flask, request
+from random import randint
 
 app = Flask(__name__)
 
@@ -166,6 +167,7 @@ def news(sender_id):
         break;
 
 def message_news(recipient_id):
+    i=randint(0,9)
     true = True
     j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
@@ -188,24 +190,24 @@ def message_news(recipient_id):
                       "template_type":"generic",
                       "elements":[
                                   {
-                                  "title":"Welcome to Peter\'s Hats",
-                                  "image_url":"https://www.google.com/edu/products/productivity-tools/classroom/images/classroom-icon/hero_logo.png",
-                                  "subtitle":"We\'ve got the right hat for everyone.",
+                                  "title":j_obj['articles'][i]['title'],
+                                  "image_url":j_obj['articles'][i]['urlToImage'],
+                                  "subtitle":j_obj['articles'][i]['description'],
                                   "default_action": {
                                   "type": "web_url",
-                                  "url": "https://www.google.com",
+                                  "url": j_obj['articles'][i]['url'],
                                   "messenger_extensions": true,
                                   "webview_height_ratio": "tall",
-                                  "fallback_url": "https://www.google.com"
+                                  "fallback_url": j_obj['articles'][i]['url']
                                   },
                                   "buttons":[
                                              {
                                              "type":"web_url",
                                              "url":"https://www.google.com",
-                                             "title":"View Website"
+                                             "title":"Go to Website"
                                              },{
                                              "type":"postback",
-                                             "title":"Start Chatting",
+                                             "title":"Next article",
                                              "payload":"news"
                                              }              
                                              ]      
