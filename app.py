@@ -48,6 +48,13 @@ def webhook():
                         
                 
                         break;
+                    
+                    
+                    
+                    if message_text=="add":
+                        addurl()
+                        break;
+                                        
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
                         break;
@@ -55,10 +62,7 @@ def webhook():
                         send_message(sender_id,"Welcome to HolaBot")
                         send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
                         break;
-                    if message_text=="add":
-                        addurl()
-                        break;
-                            
+                 
                             
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
