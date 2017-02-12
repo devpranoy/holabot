@@ -167,9 +167,15 @@ def news(sender_id):
         break;
 
 def message_news(recipient_id):
-    i=randint(0,9)
+    url=randint(0,1)
+    if url ==0:
+        j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+        break;
+    if url ==1
+        j= urllib2.urlopen(' https://newsapi.org/v1/articles?source=engadget&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+        break;
     true = True
-    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+    i=randint(0,4)
     j_obj =json.load(j)
     log("sending message to {recipient}".format(recipient=recipient_id))
     
@@ -203,7 +209,7 @@ def message_news(recipient_id):
                                   "buttons":[
                                              {
                                              "type":"web_url",
-                                             "url":"https://www.google.com",
+                                             "url":j_obj['articles'][i]['url'],
                                              "title":"Go to Website"
                                              },{
                                              "type":"postback",
