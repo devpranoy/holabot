@@ -50,11 +50,16 @@ def webhook():
                         break;
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
+                        break;
                     else:                                                       #catches query
                         send_message(sender_id,"Welcome to HolaBot")
                         send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
                         break;
-                
+                    if message_text=="add":
+                        addurl()
+                        break;
+                            
+                            
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
 
@@ -82,15 +87,36 @@ def webhook():
     return "ok", 200
 
 
+def addurl():
+
+    params = {
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    data = json.dumps({
+                      "setting_type" : "domain_whitelisting",
+                      "whitelisted_domains" : ["https://www.engadget.com","https://s.aolcdn.com","https://www.google.com"],
+                      "domain_action_type": "add"
+                      })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+
+
+
+
 def message_help(recipient_id):
     log("sending message to {recipient}".format(recipient=recipient_id))
     
     params = {
         "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-}
+    }
     headers = {
         "Content-Type": "application/json"
-}
+    }
     data = json.dumps({
                       "recipient": {
                       "id": recipient_id
@@ -137,7 +163,7 @@ def news(sender_id):
 
 def message_news(recipient_id):
     true = True
-    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
     j_obj =json.load(j)
     log("sending message to {recipient}".format(recipient=recipient_id))
     
