@@ -102,7 +102,7 @@ def addurl():
     }
     data = json.dumps({
                       "setting_type" : "domain_whitelisting",
-                      "whitelisted_domains" : ["https://cdn0.vox-cdn.com"],
+                      "whitelisted_domains" : ["https://tctechcrunch2011.files.wordpress.com","https://techcrunch.com"],    #remove verge later
                       "domain_action_type": "add"
                       })
     r = requests.post("https://graph.facebook.com/v2.6/me/thread_settings?", params=params, headers=headers, data=data)
@@ -156,33 +156,34 @@ def message_help(recipient_id):
 
 
 
-def news(sender_id):
-    j = urllib2.urlopen('https://newsapi.org/v1/articles?source=the-hindu&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-    j_obj =json.load(j)
-    for i in range(5):
-        temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
-        send_message(sender_id, temp)
-        img=j_obj['articles'][i]['url'] #SENDING THE IMAGELINKS
-        send_message(sender_id,img)
-        break;
+#def news(sender_id):
+#   j = urllib2.urlopen
+#    j_obj =json.load(j)
+#    for i in range(5):
+#        temp= j_obj['articles'][i]['title'] #SENDING THE ARTICLES
+#        send_message(sender_id, temp)
+#        img=j_obj['articles'][i]['url'] #SENDING THE IMAGELINKS
+#        send_message(sender_id,img)
+#        break;
 
 def message_news(recipient_id):
     url=randint(0,3)
     if url ==0:
         j = urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-    
+        i=randint(0,4)
     if url ==1:
-        j= urllib2.urlopen(' https://newsapi.org/v1/articles?source=engadget&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-
+        j= urllib2.urlopen('https://newsapi.org/v1/articles?source=engadget&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+        i=randint(0,9)
 
     if url ==2:
-        j= urllib2.urlopen(' https://newsapi.org/v1/articles?source=the-verge&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-
+        j= urllib2.urlopen('https://newsapi.org/v1/articles?source=techcrunch&sortBy=top&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+        i=randint(0,4)
     if url ==3:
-        j= urllib2.urlopen('https://newsapi.org/v1/articles?source=the-verge&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
-
+        j= urllib2.urlopen('https://newsapi.org/v1/articles?source=techcrunch&sortBy=latest&apiKey=e40c47087f914323b5b4cf28b35d0fa9')
+        i=randint(0,9)
+            
     true = True
-    i=randint(0,4)
+
     j_obj =json.load(j)
     log("sending message to {recipient}".format(recipient=recipient_id))
     
