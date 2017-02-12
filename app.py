@@ -58,6 +58,7 @@ def webhook():
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
+                        message_help(sender_id)
                         break;
                     else:                                                       #catches query
                         send_message(sender_id,"Welcome to HolaBot")
