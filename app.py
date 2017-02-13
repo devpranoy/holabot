@@ -18,7 +18,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "code uploaded", 200
+    return "<html><head></head><body><marquee> Hey im alive </marquee> </body></html>", 200
 
 
 @app.route('/', methods=['POST'])
@@ -53,7 +53,8 @@ def webhook():
                     
                     
                     if message_text=="add":
-                        addurl()
+                        send_message(sender_id,"Add command was inintialised")
+                        
                         break;
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
@@ -83,7 +84,7 @@ def webhook():
                         message_news(sender_id)
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
-
+                    
 
 
 
