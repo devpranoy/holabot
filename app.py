@@ -52,9 +52,6 @@ def webhook():
                 
                         break;
                     
-                    if message_text =="tyko@sv.co":
-                        send_to_users()
-                        break;
                     
                     if message_text=="add":
                         send_message(sender_id,"Add command was inintialised")
