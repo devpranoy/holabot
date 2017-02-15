@@ -37,7 +37,7 @@ def webhook():
                 if messaging_event.get("message"):  # someone sent us a message
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
-                    add_user(sender_id)          #adding that user to db
+                    #adding that user to db
                     
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
@@ -104,26 +104,10 @@ def send_to_users():
     file = open("userdb.txt","r")
     for i in range(3):
         user=int(file.readline())
-        send_message(user,"Hi")
+        send_message(user,"Hi, how are you?")
     file.close
 
 
-
-
-
-def add_user(sender_id):
-    userdb=[];
-    flag = 0
-    length = len(userdb)
-    for i in range(length):
-        if userdb[i]==sender_id:
-            flag =1
-    if flag==0:
-        userdb.append(sender_id)
-        file= open("userdb.txt","a")
-        for i in range(len(userdb)):
-            file.write(str(userdb[i])+"\n")
-        file.close()
 
 #===================================================/
 
