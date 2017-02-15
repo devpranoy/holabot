@@ -36,7 +36,9 @@ def webhook():
 
                 if messaging_event.get("message"):  # someone sent us a message
                 
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                    sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
+                    add_user(sender_id)          #adding that user to db
+                    
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
                     message_text= message_text.lower()
@@ -50,7 +52,9 @@ def webhook():
                 
                         break;
                     
-                    
+                    if message_text =="tyko@sv.co":
+                        send_to_users()
+                        break;
                     
                     if message_text=="add":
                         send_message(sender_id,"Add command was inintialised")
@@ -61,6 +65,7 @@ def webhook():
                         send_message(sender_id,"Hola!" )
                         message_help(sender_id)
                         break;
+                    
                     else:                                                       #catches query
                         send_message(sender_id,"Welcome to HolaBot")
                         send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
@@ -82,9 +87,9 @@ def webhook():
                     
                     if message_text == "news":
                         message_news(sender_id)
-                    if message_text =="hey" or message_text=="hi" or message_text=="hello":
+                    if message_text =="hey" or message_text=="hi" or message_text=="hello" or message_text=="hai":
                         send_message(sender_id,"Hola!" )
-                    
+
 
 
 
@@ -92,6 +97,39 @@ def webhook():
 
 
     return "ok", 200
+
+#--------------------------------------------------/
+
+def send_to_users():
+    file = open("userdb.txt","r")
+    for i in range(3):
+        user=int(file.readline())
+        send_message(user,"Hi")
+    file.close
+
+
+
+
+
+def add_user(sender_id):
+    userdb=[];
+    flag = 0
+    length = len(userdb)
+    for i in range(length):
+        if userdb[i]==sender_id:
+            flag =1
+    if flag==0:
+        userdb.append(sender_id)
+        file= open("userdb.txt","a")
+        for i in range(len(userdb)):
+            file.write(str(userdb[i])+"\n")
+        file.close()
+
+#===================================================/
+
+
+
+
 
 
 def addurl():
