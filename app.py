@@ -102,7 +102,7 @@ def webhook():
 
 def send_to_users():
     file = open("userdb.txt","r")
-    for i in range(3):
+    for i in items:
         user=int(file.readline())
         send_message(user,"Hi, how are you?")
     file.close
