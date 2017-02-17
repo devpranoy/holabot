@@ -19,14 +19,14 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "<html><head></head><body><marquee> I'm alive bitches</marquee> </body></html>", 200
-def db_connect():
+    return " I'm alive bitches ", 200
+def db_connect(sender_id):
     DATABASE_URL=os.environ["DATABASE_URL"]
     try:
         conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
-        return " yay it worked ",200
+        send_message(sender_id,"test successful")
     except:
-        return "I am unable to connect to the database",200
+        send_message(sender_id,"test failed")
 
 
 @app.route('/', methods=['POST'])
@@ -66,7 +66,7 @@ def webhook():
                     
                     if message_text=="dbconnect":
                         send_message(sender_id,"dbconnect command was inintialised")
-                        dbconnect()
+                        db_connect(sender_id)
                         break;
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
