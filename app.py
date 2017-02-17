@@ -48,7 +48,10 @@ def webhook():
                             #adding that user to db
                             #add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]# the message's text
+                    try:
+                        message_text = messaging_event["message"]["text"]# the message's text
+                    except:
+                        send_message(sender_id,"We do not accept media content right now, Sorry!")
                     message_text= message_text.lower()
                     
                     if message_text == "news":
