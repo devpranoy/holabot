@@ -70,14 +70,14 @@ def webhook():
                     if message_text=="showdb":
                         showdb(sender_id)
                         break;
-                    #   # if message_text=="create_table":
-                    #send_message(sender_id,"createtable command was inintialised")
-                    #   make_table(sender_id)
-                    #   break;
-                    #   #if message_text=="delete_table":
-                    #   send_message(sender_id,"deletetable command was inintialised")
-                    #   delete_table(sender_id)
-                    #   break;
+                    if message_text=="create_table":
+                        send_message(sender_id,"createtable command was inintialised")
+                        make_table(sender_id)
+                        break;
+                    if message_text=="delete_table":
+                        send_message(sender_id,"deletetable command was inintialised")
+                        delete_table(sender_id)
+                        break;
                     #   #  if message_text=="dbconnect":
                     #   send_message(sender_id,"dbconnect command was inintialised")
                     #   db_connect(sender_id)
@@ -200,7 +200,8 @@ def user_check(sender_id):
     rows = cur.fetchall()
     for row in rows:
         if row[0]==sender_id:
-            flag=1              #user found
+            flag=1
+            send_message(sender_id,"User found")#user found
     conn.close()
     return flag
 
