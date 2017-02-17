@@ -200,8 +200,8 @@ def user_check(sender_id):
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
     for row in rows:
-    obj = row[0]
-    obj = str(obj)
+        obj = row[0]
+        obj = str(obj)
         if obj==str(sender_id):
             flag=1
             send_message(sender_id,"User found")#user found
