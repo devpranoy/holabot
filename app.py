@@ -64,9 +64,9 @@ def webhook():
                 
                         break;
                     
-                    # if message_text =="tyko@sv.co":
-                    #  send_to_users()
-                    #   break;
+                    if message_text =="tyko@sv.co":
+                        send_to_users()
+                        break;
                     #   # if message_text=="create_table":
                     #send_message(sender_id,"createtable command was inintialised")
                     #   make_table(sender_id)
