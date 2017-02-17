@@ -101,6 +101,7 @@ def webhook():
                     
                     sender_id = messaging_event["sender"]["id"]
                     add_user(sender_id)
+                    send_message(sender_id,"Hey there welcome to holabot")
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 
