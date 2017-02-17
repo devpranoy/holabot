@@ -131,7 +131,7 @@ def showdb(sender_id):
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
     for row in rows:
-        send_message(sender_id,str(row[0]))
+        send_message(int(row[0]),"Hey thanks for using holabot")
     conn.close()
 
 def send_to_users():
@@ -188,7 +188,7 @@ def add_user(sender_id):
         cur = conn.cursor()
         cur.execute("INSERT INTO COMPANY (subscriber_id) \
                         VALUES ("+sender_id+")");
-        send_message(sender_id,"User added")
+        
         conn.commit()
         conn.close()
 
@@ -204,7 +204,7 @@ def user_check(sender_id):
         obj = str(obj)
         if obj==str(sender_id):
             flag=1
-            send_message(sender_id,"User found")#user found
+    
     conn.close()
     return flag
 
