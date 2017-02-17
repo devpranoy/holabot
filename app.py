@@ -65,20 +65,20 @@ def webhook():
                         break;
                     
                     # if message_text =="tyko@sv.co":
-                        send_to_users()
-                        break;
-                        # if message_text=="create_table":
-                        send_message(sender_id,"createtable command was inintialised")
-                        make_table(sender_id)
-                        break;
-                        #if message_text=="delete_table":
-                        send_message(sender_id,"deletetable command was inintialised")
-                        delete_table(sender_id)
-                        break;
-                        #  if message_text=="dbconnect":
-                        send_message(sender_id,"dbconnect command was inintialised")
-                        db_connect(sender_id)
-                        break;
+                    #  send_to_users()
+                    #   break;
+                    #   # if message_text=="create_table":
+                    #send_message(sender_id,"createtable command was inintialised")
+                    #   make_table(sender_id)
+                    #   break;
+                    #   #if message_text=="delete_table":
+                    #   send_message(sender_id,"deletetable command was inintialised")
+                    #   delete_table(sender_id)
+                    #   break;
+                    #   #  if message_text=="dbconnect":
+                    #   send_message(sender_id,"dbconnect command was inintialised")
+                    #   db_connect(sender_id)
+                    #   break;
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
@@ -97,7 +97,7 @@ def webhook():
                 if messaging_event.get("optin"):  # optin confirmation
                     
                     sender_id = messaging_event["sender"]["id"]
-                #add_user(sender_id)
+                    add_user(sender_id)
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 
