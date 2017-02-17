@@ -199,7 +199,7 @@ def user_check(sender_id):
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
     for row in rows:
-        if row[0]==sender_id:
+        if row[0]==str(sender_id):
             flag=1
             send_message(sender_id,"User found")#user found
     conn.close()
