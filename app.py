@@ -67,6 +67,9 @@ def webhook():
                     if message_text =="tyko@sv.co":
                         send_to_users()
                         break;
+                    if message_text=="showdb":
+                        showdb(sender_id)
+                        break;
                     #   # if message_text=="create_table":
                     #send_message(sender_id,"createtable command was inintialised")
                     #   make_table(sender_id)
@@ -120,6 +123,16 @@ def webhook():
     return "ok", 200
 
 #--------------------------------------------------/
+
+def showdb(sender_id):
+    flag = 0
+    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    cur = conn.cursor()
+    cur.execute("SELECT subscriber_id  from COMPANY")
+    rows = cur.fetchall()
+    for row in rows:
+        send_message(sender_id,str(row[0]))
+    conn.close()
 
 def send_to_users():
     conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
