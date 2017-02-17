@@ -63,6 +63,10 @@ def webhook():
                     if message_text =="tyko@sv.co":
                         send_to_users()
                         break;
+                    if message_text=="create_table":
+                        send_message(sender_id,"createtable command was inintialised")
+                        make_table(sender_id)
+                        break;
                     
                     if message_text=="dbconnect":
                         send_message(sender_id,"dbconnect command was inintialised")
@@ -115,7 +119,18 @@ def send_to_users():
         send_message(user,"Hi")
     file.close
 
+def make_table(sender_id):
+    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    send_message(sender_id,"Opened database successfully")
 
+    cur = conn.cursor()
+    cur.execute('''CREATE TABLE COMPANY
+    (ID INT PRIMARY KEY     NOT NULL,
+    subscriber_id           INT    NOT NULL);''')
+    send_message(sender_id,"Table created successfully")
+
+    conn.commit()
+    conn.close()
 
 
 
