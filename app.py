@@ -138,7 +138,7 @@ def send_to_users():
     for i in range(len(usr)):
         send_message(usr[i],"hey this is a test messsage say hi")
     conn.close()
-    return(flag)
+
 
 def delete_table(sender_id):
     conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
