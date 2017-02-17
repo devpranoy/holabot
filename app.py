@@ -52,6 +52,7 @@ def webhook():
                         message_text = messaging_event["message"]["text"]# the message's text
                     except:
                         send_message(sender_id,"We do not accept media content right now, Sorry!")
+                        break;
                     message_text= message_text.lower()
                     
                     if message_text == "news":
@@ -131,7 +132,7 @@ def send_to_users():
         sender_id =row[0]
         
         usr.append(sender_id)
-        if user[n]==user[n-1]:
+        if usr[n]==usr[n-1]:
             break;
         n=n+1
     for i in range(len(usr)):
