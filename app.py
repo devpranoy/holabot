@@ -24,7 +24,7 @@ def db_connect():
     DATABASE_URL=os.environ["DATABASE_URL"]
     try:
         conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
-            return " yay it worked ",200
+        return " yay it worked ",200
     except:
         return "I am unable to connect to the database",200
 
