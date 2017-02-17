@@ -130,10 +130,9 @@ def send_to_users():
     n=0
     for row in rows:
         sender_id =row[0]
-        
-        usr.append(sender_id)
         if usr[n]==usr[n-1]:
             break;
+        usr.append(sender_id)
         n=n+1
     for i in range(len(usr)):
         send_message(usr[i],"hey this is a test messsage say hi")
