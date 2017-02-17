@@ -128,13 +128,15 @@ def send_to_users():
     rows = cur.fetchall()
     usr=[]
     usr.append(1279780365392344)
-    n=1
+    n=0
     for row in rows:
         sender_id =row[0]
-        if usr[n]==usr[n-1]:
-            break;
         usr.append(sender_id)
         n=n+1
+        if usr[n]==usr[n-1]:
+            break;
+    
+
     for i in range(len(usr)):
         send_message(usr[i],"hey this is a test messsage say hi")
     conn.close()
