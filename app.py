@@ -46,7 +46,7 @@ def webhook():
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
                             #adding that user to db
-                    add_user(sender_id)
+                            #add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
                     message_text= message_text.lower()
@@ -67,7 +67,10 @@ def webhook():
                         send_message(sender_id,"createtable command was inintialised")
                         make_table(sender_id)
                         break;
-                    
+                    if message_text=="delete_table":
+                        send_message(sender_id,"deletetable command was inintialised")
+                        delete_table(sender_id)
+                        break;
                     if message_text=="dbconnect":
                         send_message(sender_id,"dbconnect command was inintialised")
                         db_connect(sender_id)
@@ -90,7 +93,7 @@ def webhook():
                 if messaging_event.get("optin"):  # optin confirmation
                     
                     sender_id = messaging_event["sender"]["id"]
-                    add_user(sender_id)
+                    #add_user(sender_id)
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 
@@ -125,6 +128,18 @@ def send_to_users():
     conn.close()
     return(flag)
 
+def delete_table(sender_id):
+    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    send_message(sender_id,"Opened database successfully")
+    
+    cur = conn.cursor()
+    cur.execute('''DROP TABLE COMPANY;''')
+    send_message(sender_id,"Table deleted successfully")
+    
+    conn.commit()
+    conn.close()
+
+
 
 def make_table(sender_id):
     conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
@@ -133,7 +148,7 @@ def make_table(sender_id):
     cur = conn.cursor()
     cur.execute('''CREATE TABLE COMPANY
     (ID INT PRIMARY KEY     NOT NULL,
-    subscriber_id           INT    NOT NULL);''')
+    subscriber_id           BIGINT    NOT NULL);''')
     send_message(sender_id,"Table created successfully")
 
     conn.commit()
