@@ -46,7 +46,7 @@ def webhook():
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
                             #adding that user to db
-                            #add_user(sender_id)
+                    add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     try:
                         message_text = messaging_event["message"]["text"]# the message's text
@@ -188,6 +188,7 @@ def add_user(sender_id):
         cur = conn.cursor()
         cur.execute("INSERT INTO COMPANY (subscriber_id) \
                         VALUES ("+sender_id+")");
+        send_message(sender_id,"User added")
         conn.commit()
         conn.close()
 
@@ -199,7 +200,9 @@ def user_check(sender_id):
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
     for row in rows:
-        if row[0]==str(sender_id):
+    obj = row[0]
+    obj = str(obj)
+        if obj==str(sender_id):
             flag=1
             send_message(sender_id,"User found")#user found
     conn.close()
