@@ -5,6 +5,7 @@ import urllib2
 import requests
 from flask import Flask, request
 from random import randint
+import psycopg2
 
 app = Flask(__name__)
 
@@ -18,7 +19,14 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "<html><head></head><body><marquee> Hey im alive </marquee> </body></html>", 200
+    return "<html><head></head><body><marquee> I'm alive bitches</marquee> </body></html>", 200
+def db_connect():
+    DATABASE_URL=os.environ["DATABASE_URL"]
+    try:
+        conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+            return " yay it worked ",200
+    except:
+        return "I am unable to connect to the database",200
 
 
 @app.route('/', methods=['POST'])
@@ -37,7 +45,7 @@ def webhook():
                 if messaging_event.get("message"):  # someone sent us a message
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
-                    #adding that user to db
+                    add_user(sender_id)          #adding that user to db
                     
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
@@ -52,10 +60,13 @@ def webhook():
                 
                         break;
                     
+                    if message_text =="tyko@sv.co":
+                        send_to_users()
+                        break;
                     
-                    if message_text=="add":
-                        send_message(sender_id,"Add command was inintialised")
-                        
+                    if message_text=="dbconnect":
+                        send_message(sender_id,"dbconnect command was inintialised")
+                        dbconnect()
                         break;
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
@@ -97,14 +108,30 @@ def webhook():
 
 #--------------------------------------------------/
 
-#def send_to_users():
-#   file = open("userdb.txt","r")
-#   for i in items:
-#       user=int(file.readline())
-#       send_message(user,"Hi, how are you?")
-#    file.close
+def send_to_users():
+    file = open("userdb.txt","r")
+    for i in range(3):
+        user=int(file.readline())
+        send_message(user,"Hi")
+    file.close
 
 
+
+
+
+def add_user(sender_id):
+    userdb=[];
+    flag = 0
+    length = len(userdb)
+    for i in range(length):
+        if userdb[i]==sender_id:
+            flag =1
+    if flag==0:
+        userdb.append(sender_id)
+        file= open("userdb.txt","a")
+        for i in range(len(userdb)):
+            file.write(str(userdb[i])+"\n")
+        file.close()
 
 #===================================================/
 
