@@ -45,8 +45,8 @@ def webhook():
                 if messaging_event.get("message"):  # someone sent us a message
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
-                    add_user(sender_id)          #adding that user to db
-                    
+                            #adding that user to db
+                    add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]# the message's text
                     message_text= message_text.lower()
@@ -88,7 +88,9 @@ def webhook():
                     pass
 
                 if messaging_event.get("optin"):  # optin confirmation
-                    pass
+                    
+                    sender_id = messaging_event["sender"]["id"]
+                    add_user(sender_id)
 
                 if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 
@@ -113,11 +115,16 @@ def webhook():
 #--------------------------------------------------/
 
 def send_to_users():
-    file = open("userdb.txt","r")
-    for i in range(3):
-        user=int(file.readline())
-        send_message(user,"Hi")
-    file.close
+    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    cur = conn.cursor()
+    cur.execute("SELECT subscriber_id  from COMPANY")
+    rows = cur.fetchall()
+    for row in rows:
+        sender_id =row[0]
+        send_message(sender_id,"This is a broadcast")
+    conn.close()
+    return(flag)
+
 
 def make_table(sender_id):
     conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
@@ -135,18 +142,28 @@ def make_table(sender_id):
 
 
 def add_user(sender_id):
-    userdb=[];
+    if user_check(sender_id) ==0:
+        conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+        cur = conn.cursor()
+        cur.execute("INSERT INTO COMPANY (subscriber_id) \
+                        VALUES ("+sender_id+")");
+        conn.commit()
+        conn.close()
+
+
+def user_check(sender_id):
     flag = 0
-    length = len(userdb)
-    for i in range(length):
-        if userdb[i]==sender_id:
-            flag =1
-    if flag==0:
-        userdb.append(sender_id)
-        file= open("userdb.txt","a")
-        for i in range(len(userdb)):
-            file.write(str(userdb[i])+"\n")
-        file.close()
+    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    cur = conn.cursor()
+    cur.execute("SELECT subscriber_id  from COMPANY")
+    rows = cur.fetchall()
+    for row in rows:
+        if row[0]==sender_id:
+            flag=1              #user found
+    conn.close()
+    return(flag)
+
+
 
 #===================================================/
 
