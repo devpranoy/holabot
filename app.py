@@ -122,9 +122,17 @@ def send_to_users():
     cur = conn.cursor()
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
+    usr=[]
+    n=0
     for row in rows:
         sender_id =row[0]
-        send_message(sender_id,"This is a broadcast")
+        
+        usr.append(sender_id)
+        if user[n]==user[n-1]:
+            break;
+        n=n+1
+    for i in range(len(usr)):
+        send_message(usr[i],"hey this is a test messsage say hi")
     conn.close()
     return(flag)
 
