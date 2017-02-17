@@ -127,7 +127,8 @@ def send_to_users():
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
     usr=[]
-    n=0
+    usr.append(1279780365392344)
+    n=1
     for row in rows:
         sender_id =row[0]
         if usr[n]==usr[n-1]:
