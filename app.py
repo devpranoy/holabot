@@ -166,8 +166,8 @@ def make_table(sender_id):
     send_message(sender_id,"Opened database successfully")
 
     cur = conn.cursor()
-    cur.execute('''CREATE TABLE COMPANY
-    (subscriber_id           BIGINT    NOT NULL);''')
+    cur.execute('''CREATE TABLE broadcast
+    (msg           VARCHAR(100)   NOT NULL);''')
     send_message(sender_id,"Table created successfully")
 
     conn.commit()
