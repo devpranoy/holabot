@@ -67,10 +67,10 @@ def webhook():
                     if message_text =="broadcast":
                         broadcast()
                         break;
-                    if message_text=="showdb":
+                    # if message_text=="showdb":
                         showdb(sender_id)
                         break;
-                    if message_text=="create_table":
+                        #  if message_text=="create_table":
                         send_message(sender_id,"createtable command was inintialised")
                         make_table(sender_id)
                         break;
@@ -143,8 +143,11 @@ def broadcast():
     cur = conn.cursor()
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
+    ctr=0
     for row in rows:
-        send_message(int(row[0]),"Hey thanks for using holabot")
+        ctr=ctr+1
+        if ctr<5:
+            send_message(int(row[0]),"Hey thanks for using holabot, this is a broadcast message")
     conn.close()
 
 
