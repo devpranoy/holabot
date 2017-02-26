@@ -36,6 +36,7 @@ def webhook():
 
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
+    data["object"] = "page"
 
     if data["object"] == "page":
 
@@ -49,6 +50,7 @@ def webhook():
                     if int(sender_id)==1:
                         message_text = messaging_event["message"]["text"]
                         broadcast(message_text)
+                        break;
                     add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     try:
@@ -150,7 +152,7 @@ def broadcast(message_text):
     for row in rows:
         ctr=ctr+1
         if ctr<2:
-            send_message(int(row[0]),""+message_text+"")
+            send_message(int(row[0]),str(message_text))
     conn.close()
 
 
