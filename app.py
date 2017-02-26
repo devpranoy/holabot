@@ -146,7 +146,7 @@ def broadcast(sender_id):
     ctr=0
     for row in rows:
         ctr=ctr+1
-        if ctr<5:
+        if ctr<2:
             send_message(int(row[0]),"Hey thanks for using holabot, this is a broadcast message")
     conn.close()
     send_message(sender_id,"Messages were sent")
