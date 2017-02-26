@@ -46,6 +46,9 @@ def webhook():
                 
                     sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
                             #adding that user to db
+                    if int(sender_id)==1:
+                        message_text = messaging_event["message"]["text"]
+                        broadcast(message_text)
                     add_user(sender_id)
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     try:
@@ -137,7 +140,7 @@ def showdb(sender_id):
     conn.close()
 
 
-def broadcast(sender_id):
+def broadcast(message_text):
     flag = 0
     conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
     cur = conn.cursor()
@@ -147,9 +150,9 @@ def broadcast(sender_id):
     for row in rows:
         ctr=ctr+1
         if ctr<2:
-            send_message(int(row[0]),"Hey thanks for using holabot, this is a broadcast message")
+            send_message(int(row[0]),""+message_text+"")
     conn.close()
-    send_message(sender_id,"Messages were sent")
+
 
 
 def delete_table(sender_id):
