@@ -73,7 +73,7 @@ def webhook():
                     # if message_text=="showdb":
                         showdb(sender_id)
                         break;
-                        #  if message_text=="create_table":
+                    if message_text=="create_table":
                         send_message(sender_id,"createtable command was inintialised")
                         make_table(sender_id)
                         break;
@@ -170,16 +170,14 @@ def delete_table(sender_id):
 
 
 def make_table(sender_id):
-    conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+    db = MySQLdb.connect("us-cdbr-iron-east-04.cleardb.net","bb7be506afb60a","30b7fd01","heroku_11851b7d225f057" )
     send_message(sender_id,"Opened database successfully")
-
-    cur = conn.cursor()
-    cur.execute('''CREATE TABLE broadcast
-    (msg           VARCHAR(100)   NOT NULL);''')
+    cursor = db.cursor()
+    sql = """CREATE TABLE broadcast (
+    message  CHAR(200))"""
+    cursor.execute(sql)
     send_message(sender_id,"Table created successfully")
-
-    conn.commit()
-    conn.close()
+    db.close()
 
 
 
