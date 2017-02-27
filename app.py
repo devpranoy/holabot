@@ -24,7 +24,7 @@ def verify():
 def db_connect(sender_id):
     DATABASE_URL=os.environ["DATABASE_URL"]
     try:
-        conn = psycopg2.connect("dbname='dd8t2j741pgs35' user='iiztxsjyuqydqv' host='ec2-54-243-214-198.compute-1.amazonaws.com' password='cd11211b82c6b6671e6461675b01259938e175f6e3d25a7f7cfd74867c2a375f'")
+        db = MySQLdb.connect("mysql://bb7be506afb60a:30b7fd01@us-cdbr-iron-east-04.cleardb.net/","bb7be506afb60a","30b7fd01","heroku_11851b7d225f057" )
         send_message(sender_id,"test successful")
     except:
         send_message(sender_id,"test failed")
@@ -80,10 +80,10 @@ def webhook():
                         send_message(sender_id,"deletetable command was inintialised")
                         delete_table(sender_id)
                         break;
-                    #   #  if message_text=="dbconnect":
-                    #   send_message(sender_id,"dbconnect command was inintialised")
-                    #   db_connect(sender_id)
-                    #   break;
+                    if message_text=="dbconnect":
+                        send_message(sender_id,"dbconnect command was inintialised")
+                        db_connect(sender_id)
+                        break;
                                         
                     if message_text =="hey" or message_text=="hi" or message_text=="hello":
                         send_message(sender_id,"Hola!" )
