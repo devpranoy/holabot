@@ -19,7 +19,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return " I'm alive bitches ", 200
+    return "<!DOCTYPE html><head><title>Holabot</title></head><body id=""page-top""><form action=""https://h0lab0t.herokuapp.com/"" method=""POST""><div class=""input-group""><input class=""btn btn-lg message"" name=""message"" id=""message"" type=""text"" placeholder=""Enter a message"" required><button class=""btn btn-info btn-lg"" type=""submit"">Submit</button></div></form></body></html>", 200
 def db_connect(sender_id):
     DATABASE_URL=os.environ["DATABASE_URL"]
     try:
@@ -33,13 +33,15 @@ def db_connect(sender_id):
 def webhook():
 
     # endpoint for processing incoming messaging events
+    r = requests.get('https://h0lab0t.herokuapp.com/')
+    r= str(r)
+    broadcast(r)
 
     global data
     data = request.get_json()
-    data1= data.items()
+    
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-    log(data1)
-
+    
     if data["object"] == "page":
         
         for entry in data["entry"]:
