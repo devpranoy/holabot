@@ -23,11 +23,9 @@ def verify():
     return "hola im live", 200
 def db_connect(sender_id):
     DATABASE_URL=os.environ["DATABASE_URL"]
-    try:
-        db = MySQLdb.connect("mysql://bb7be506afb60a:30b7fd01@us-cdbr-iron-east-04.cleardb.net/","bb7be506afb60a","30b7fd01","heroku_11851b7d225f057" )
-        send_message(sender_id,"test successful")
-    except:
-        send_message(sender_id,"test failed")
+    db = MySQLdb.connect("mysql://bb7be506afb60a:30b7fd01@us-cdbr-iron-east-04.cleardb.net/","bb7be506afb60a","30b7fd01","heroku_11851b7d225f057" )
+    send_message(sender_id,"test successful")
+    
 
 
 @app.route('/', methods=['POST'])
