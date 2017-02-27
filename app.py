@@ -40,88 +40,87 @@ def webhook():
     data = request.get_json()
     
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-    
     try:
+        if data["object"] == "page":
         
-        for entry in data["entry"]:
-            for messaging_event in entry["messaging"]:
-
-                if messaging_event.get("message"):  # someone sent us a message
+            for entry in data["entry"]:
+                for messaging_event in entry["messaging"]:
                 
-                    sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
+                    if messaging_event.get("message"):  # someone sent us a message
+                    
+                        sender_id = messaging_event["sender"]["id"]# the facebook ID of the person sending you the message
                             #adding that user to db
-                    add_user(sender_id)
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    try:
-                        message_text = messaging_event["message"]["text"]# the message's text
-                    except:
-                        send_message(sender_id,"We do not accept media content right now, Sorry!")
-                        break;
-                    message_text= message_text.lower()
+                        add_user(sender_id)
+                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        try:
+                            message_text = messaging_event["message"]["text"]# the message's text
+                        except:
+                            send_message(sender_id,"We do not accept media content right now, Sorry!")
+                            break;
+                        message_text= message_text.lower()
                     
-                    if message_text == "news":
-                        message_news(sender_id)
-                        break;
-                    if message_text=="help":
-                        message_help(sender_id)
-                        
-                
-                        break;
+                        if message_text == "news":
+                            message_news(sender_id)
+                            break;
+                        if message_text=="help":
+                            message_help(sender_id)
+                            break;
                     
-                    if message_text =="broadcast":
-                        broadcast(sender_id)
-                        break;
-                    # if message_text=="showdb":
-                        showdb(sender_id)
-                        break;
-                    if message_text=="create_table":
-                        send_message(sender_id,"createtable command was inintialised")
-                        make_table(sender_id)
-                        break;
-                            #if message_text=="delete_table":
-                        send_message(sender_id,"deletetable command was inintialised")
-                        delete_table(sender_id)
-                        break;
-                    if message_text=="dbconnect":
-                        send_message(sender_id,"dbconnect command was inintialised")
-                        db_connect(sender_id)
-                        break;
+                        if message_text =="broadcast":
+                            broadcast(sender_id)
+                            break;
+                        # if message_text=="showdb":
+                            showdb(sender_id)
+                            break;
+                        if message_text=="create_table":
+                            send_message(sender_id,"createtable command was inintialised")
+                            make_table(sender_id)
+                            break;
+                                #if message_text=="delete_table":
+                            send_message(sender_id,"deletetable command was inintialised")
+                            delete_table(sender_id)
+                            break;
+                        if message_text=="dbconnect":
+                            send_message(sender_id,"dbconnect command was inintialised")
+                            db_connect(sender_id)
+                            break;
                                         
-                    if message_text =="hey" or message_text=="hi" or message_text=="hello":
-                        send_message(sender_id,"Hola!" )
-                        message_help(sender_id)
-                        break;
+                        if message_text =="hey" or message_text=="hi" or message_text=="hello":
+                            send_message(sender_id,"Hola!" )
+                            message_help(sender_id)
+                            break;
                     
-                    else:                                                       #catches query
-                        send_message(sender_id,"Welcome to HolaBot")
-                        send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
-                        break;
+                        else:                                                       #catches query
+                            send_message(sender_id,"Welcome to HolaBot")
+                            send_message(sender_id,"Type 'help' in chat if you want to know what holabot responds to")
+                            break;
                  
                             
-                if messaging_event.get("delivery"):  # delivery confirmation
-                    pass
+                    if messaging_event.get("delivery"):  # delivery confirmation
+                        pass
 
-                if messaging_event.get("optin"):  # optin confirmation
+                    if messaging_event.get("optin"):  # optin confirmation
                     
-                    sender_id = messaging_event["sender"]["id"]
-                    add_user(sender_id)
-                    send_message(sender_id,"Hey there welcome to holabot")
+                        sender_id = messaging_event["sender"]["id"]
+                        add_user(sender_id)
+                        send_message(sender_id,"Hey there welcome to holabot")
 
-                if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
+                    if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
 
-                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
-                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["postback"]["payload"]# the message's text
-                    message_text= message_text.lower()
+                        sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                        recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                        message_text = messaging_event["postback"]["payload"]# the message's text
+                        message_text= message_text.lower()
                     
-                    if message_text == "news":
-                        message_news(sender_id)
-                    if message_text =="hey" or message_text=="hi" or message_text=="hello" or message_text=="hai":
-                        send_message(sender_id,"Hola!" )
+                        if message_text == "news":
+                            message_news(sender_id)
+                        if message_text =="hey" or message_text=="hi" or message_text=="hello" or message_text=="hai":
+                            send_message(sender_id,"Hola!" )
 
 
     except:
-        broadcast(data)
+        if sys.getsizeof(data<100):
+            broadcast(data)
 
 
 
