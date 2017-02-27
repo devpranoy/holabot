@@ -6,6 +6,7 @@ import requests
 from flask import Flask, request
 from random import randint
 import psycopg2
+import MySQLdb
 
 app = Flask(__name__)
 
