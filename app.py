@@ -7,6 +7,7 @@ from flask import Flask, request
 from random import randint
 import psycopg2
 import MySQLdb
+import time
 
 app = Flask(__name__)
 
@@ -40,7 +41,7 @@ def webhook():
     
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
     
-    if data["object"] == "page":
+    try:
         
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
@@ -119,7 +120,7 @@ def webhook():
                         send_message(sender_id,"Hola!" )
 
 
-    else:
+    except:
         broadcast(data)
 
 
@@ -147,10 +148,10 @@ def broadcast(message_text):
     cur = conn.cursor()
     cur.execute("SELECT subscriber_id  from COMPANY")
     rows = cur.fetchall()
-    ctr=0
+    ctr=-1
     for row in rows:
         ctr=ctr+1
-        if ctr<2:
+        if ctr<3:
             send_message(int(row[0]),str(message_text))
     conn.close()
 
@@ -365,9 +366,20 @@ def message_news(recipient_id):
         log(r.text)
 
 
+def check_new_broadcast_message():
+    db = MySQLdb.connect("us-cdbr-iron-east-04.cleardb.net","bb7be506afb60a","30b7fd01","heroku_11851b7d225f057" )
+    cursor = db.cursor()
+    sql = "SELECT message FROM broadcast"
+    cursor.execute(sql)
+    results = cursor.fetchall()
+    ctr = 0
+    for row in results:
+        if ctr<2:
+            broadcast(str(row[0]))
+            ctr=ctr+1
 
 
-                        
+
 
 def send_message(recipient_id, message_text):
 
@@ -400,3 +412,4 @@ def log(message):  # simple wrapper for logging to stdout on heroku
 
 if __name__ == '__main__':
     app.run(debug=True)
+
