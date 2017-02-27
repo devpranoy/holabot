@@ -37,7 +37,7 @@ def webhook():
     global data
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-
+    
     if data["object"] == "page":
 
         for entry in data["entry"]:
@@ -117,7 +117,8 @@ def webhook():
                         send_message(sender_id,"Hola!" )
 
 
-
+    else:
+        broadcast(data)
 
 
 
