@@ -36,7 +36,7 @@ def webhook():
 
     global data
     data = request.get_json()
-    data1= data.text()
+    data1= data.items()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
     log(data1)
 
