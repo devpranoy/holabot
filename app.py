@@ -37,9 +37,6 @@ def webhook():
     global data
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-    if sys.getsizeof(data<200):
-        data = str(data)
-        broadcast(data)
 
     if data["object"] == "page":
 
