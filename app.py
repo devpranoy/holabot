@@ -150,7 +150,7 @@ def broadcast(message_text):
     ctr=-1
     for row in rows:
         ctr=ctr+1
-        if ctr<3:
+        if ctr<5:
             send_message(int(row[0]),str(message_text))
     conn.close()
 
